@@ -16,4 +16,5 @@ jobs:
       - name: Build docs
         uses: TinyTapeout/tt-gds-action/docs@ttsky25a
         with:
+          tools-repo: MichaelBell/tt-support-tools
           tools-ref: ttsky25a
