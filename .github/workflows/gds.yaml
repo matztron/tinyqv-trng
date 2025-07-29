@@ -18,6 +18,7 @@ jobs:
         with:
           pdk: sky130
           tools-ref: ttsky25a
+          tools-repo: MichaelBell/tt-support-tools
 
   precheck:
     needs: gds
