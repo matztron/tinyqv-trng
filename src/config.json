@@ -70,5 +70,10 @@
   "MAGIC_DEF_LABELS": 0,
 
   "//": "Only export pin area in LEF (without any connected nets)",
-  "MAGIC_WRITE_LEF_PINONLY": 1
+  "MAGIC_WRITE_LEF_PINONLY": 1,
+
+  "//": "Make tools preserve ring oscillators",
+  "SYNTH_NO_FLAT": true,
+  "SYNTH_SHARE_RESOURCES": false,
+  "PL_BASIC_PLACEMENT": true 
 }
