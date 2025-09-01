@@ -8,7 +8,7 @@
 // Change the name of this module to something that reflects its functionality and includes your name for uniqueness
 // For example tqvp_yourname_spi for an SPI peripheral.
 // Then edit tt_wrapper.v line 38 and change tqvp_example to your chosen module name.
-module tqvp_example (
+module tqvp_matztron_trng (
     input         clk,          // Clock - the TinyQV project clock is normally set to 64MHz.
     input         rst_n,        // Reset_n - low to reset.
 
@@ -27,25 +27,27 @@ module tqvp_example (
 );
 
     // Example: Implement an 8-bit read/write register at address 0
-    reg [7:0] example_data;
+    reg [7:0] en_reg;
     always @(posedge clk) begin
         if (!rst_n) begin
-            example_data <= 0;
+            en_reg <= 0;
         end else begin
             if (address == 4'h0) begin
-                if (data_write) example_data <= data_in;
+                if (data_write) en_reg <= data_in;
             end
         end
     end
 
     // All output pins must be assigned. If not used, assign to 0.
-    assign uo_out  = ui_in + example_data;  // Example: uo_out is the sum of ui_in and the example register
+    assign uo_out  = 0;  // Example: uo_out is the sum of ui_in and the example register
 
-    // Address 0 reads the example data register.  
-    // Address 1 reads ui_in
-    // All other addresses read 0.
-    assign data_out = (address == 4'h0) ? example_data :
-                      (address == 4'h1) ? ui_in :
-                      8'h0;    
+    // If SW writes 0x01 into the register enable the TRNG!
+    // -> LSB = 1
+    // For any other value: Disable TRNG
+    trng_top #(.SIZE(8)) trng_inst (
+        .clk(clk),
+        .en(en_reg[0]),
+        .d_out(data_out)
+    );
 
 endmodule

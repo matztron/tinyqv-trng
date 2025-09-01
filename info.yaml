@@ -1,9 +1,9 @@
 # Tiny Tapeout project information
 project:
-  title:        ""      # Project title
-  author:       ""      # Your name
-  discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
-  description:  ""      # One line description of what your project does
+  title:        "TRNG TheRING"      # Project title
+  author:       "Matthias Musch"      # Your name
+  discord:      "matztron"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "8bit random number generator created during Ignite2024 in Heidelberg"      # One line description of what your project does
   language:     "Verilog" # other examples include SystemVerilog, Amaranth, VHDL, etc
   clock_hz:     64000000  # Clock frequency in Hz (or 0 if not applicable)
 
@@ -24,6 +24,9 @@ project:
     - "test_harness/reclocking.sv"
     - "test_harness/spi_reg.sv"
     - "test_harness/synchronizer.sv"
+    - "generic_ro.v"
+    - "not_gate.v"
+    - "trng_top.v"
 
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
