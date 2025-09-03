@@ -74,6 +74,5 @@
 
   "//": "Make tools preserve ring oscillators",
   "SYNTH_NO_FLAT": true,
-  "SYNTH_SHARE_RESOURCES": false,
-  "PL_BASIC_PLACEMENT": true 
+  "SYNTH_SHARE_RESOURCES": false
 }
