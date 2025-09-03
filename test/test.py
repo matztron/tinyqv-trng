@@ -50,7 +50,7 @@ async def test_project(dut):
 
     await tqv.write_reg(0, 1)
 
-    await ClockCycles(dut.clk, 30)
+    await ClockCycles(dut.clk, 29)
 
     assert dut.data_out != old_rng_val
 
