@@ -32,27 +32,20 @@ async def test_project(dut):
 
     dut._log.info("Test project behavior")
 
-    # Test register write and read back
+    # Write TRNG Enable register to be 0 (off)
     await tqv.write_reg(0, 0)
-    #assert await tqv.read_reg(0) == 20
 
-    old_rng_val = dut.data_out.value
+    assert tqv.read_reg(0) == 1
 
-    # Set an input value, in the example this will be added to the register value
-    #dut.ui_in.value = 30
+    await ClockCycles(dut.clk, 4)
 
-    # Wait for two clock cycles to see the output values, because ui_in is synchronized over two clocks,
-    # and a further clock is required for the output to propagate.
-    await ClockCycles(dut.clk, 30)
-
-    # value should not have changed as the design is disabled
-    #assert dut.data_out = old_rng_val
-
+    # Write TRNG Enable register to be 1 (on)
     await tqv.write_reg(0, 1)
 
-    await ClockCycles(dut.clk, 29)
+    assert tqv.read_reg(0) == 1
 
-    assert dut.data_out.value != old_rng_val
+    await ClockCycles(dut.clk, 300)
+
 
     # The following assertion is just an example of how to check the output values.
     # Change it to match the actual expected output of your module:

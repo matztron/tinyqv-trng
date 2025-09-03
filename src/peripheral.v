@@ -26,8 +26,11 @@ module tqvp_matztron_trng (
     output [7:0]  data_out      // Data out from the peripheral, set this in accordance with the supplied address
 );
 
-    // Example: Implement an 8-bit read/write register at address 0
-    reg [7:0] en_reg;
+    reg [7:0] en_reg;   // R/W    | Address: 0
+    reg [7:0] rand_val; // R only | Address: 1
+
+    // Enable register at address 0
+    // Write part
     always @(posedge clk) begin
         if (!rst_n) begin
             en_reg <= 0;
@@ -38,6 +41,7 @@ module tqvp_matztron_trng (
         end
     end
 
+
     // All output pins must be assigned. If not used, assign to 0.
     assign uo_out  = 0;  // Example: uo_out is the sum of ui_in and the example register
 
@@ -47,7 +51,15 @@ module tqvp_matztron_trng (
     trng_top #(.SIZE(8)) trng_inst (
         .clk(clk),
         .en(en_reg[0]),
-        .d_out(data_out)
+        .d_out(rand_val)
     );
+
+    // Read parts
+    // Address 0 reads enable register  
+    // Address 1 reads random values
+    // All other addresses read 0.
+    assign data_out = (address == 4'h0) ? en_reg :
+                      (address == 4'h1) ? rand_val :
+                      8'h0;
 
 endmodule
