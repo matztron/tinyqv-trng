@@ -35,14 +35,16 @@ async def test_project(dut):
     # Write TRNG Enable register to be 0 (off)
     await tqv.write_reg(0, 0)
 
-    assert tqv.read_reg(0) == 1
+    await rd_val = tqv.read_reg(0)
+    assert rd_val == 0
 
     await ClockCycles(dut.clk, 4)
 
     # Write TRNG Enable register to be 1 (on)
     await tqv.write_reg(0, 1)
+    assert rd_val == 1
 
-    assert tqv.read_reg(0) == 1
+    await rd_val = tqv.read_reg(0)
 
     await ClockCycles(dut.clk, 300)
 
