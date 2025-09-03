@@ -36,7 +36,7 @@ async def test_project(dut):
     await tqv.write_reg(0, 0)
     #assert await tqv.read_reg(0) == 20
 
-    old_rng_val = dut.data_out
+    old_rng_val = dut.data_out.value
 
     # Set an input value, in the example this will be added to the register value
     #dut.ui_in.value = 30
@@ -52,7 +52,7 @@ async def test_project(dut):
 
     await ClockCycles(dut.clk, 29)
 
-    assert dut.data_out != old_rng_val
+    assert dut.data_out.value != old_rng_val
 
     # The following assertion is just an example of how to check the output values.
     # Change it to match the actual expected output of your module:
